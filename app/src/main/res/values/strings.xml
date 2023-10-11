@@ -4,4 +4,6 @@
     <string name="list_alphabet">Book List Catalog</string>
     <string name="list">List</string>
     <string name="grid">Grid</string>
+    <string name="hi">Hi,</string>
+    <string name="user">Wildan</string>
 </resources>
