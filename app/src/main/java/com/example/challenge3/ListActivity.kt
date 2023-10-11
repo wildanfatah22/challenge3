@@ -4,6 +4,7 @@ import android.content.Intent
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.MenuItem
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.ListAdapter
@@ -20,6 +21,8 @@ class ListActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityListBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        setSupportActionBar(binding.toolbar)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         val selectedAlphabet = intent.getCharExtra(KEY_LETTER, 'A')
         val filteredBooks = generateDummyData().filter { it.name.firstOrNull() == selectedAlphabet }
@@ -44,8 +47,16 @@ class ListActivity : AppCompatActivity() {
         val intent = Intent(this@ListActivity, GoogleActivity::class.java)
         intent.putExtra(GoogleActivity.EXTRA_SEARCH_QUERY, data.name)
         startActivity(intent)
+    }
 
-
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            android.R.id.home -> {
+                onBackPressed()
+                return true
+            }
+            else -> return super.onOptionsItemSelected(item)
+        }
     }
 
     private fun generateDummyData(): List<BookList> {
