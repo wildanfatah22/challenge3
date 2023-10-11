@@ -12,6 +12,12 @@ class BookAdapter: RecyclerView.Adapter<BookAdapter.ViewHolder>() {
 
     private val differ = AsyncListDiffer(this, BookDiffUtilCallback())
 
+    private var onItemClickCallback: OnItemClickCallback? = null
+
+    fun setOnItemClickCallback(onItemClickCallback: OnItemClickCallback) {
+        this.onItemClickCallback = onItemClickCallback
+    }
+
     inner class ViewHolder(private var binding: ItemListBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(data: BookList) {
             binding.ivBanner.setImageResource(data.imagePicture)
@@ -28,10 +34,15 @@ class BookAdapter: RecyclerView.Adapter<BookAdapter.ViewHolder>() {
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.bind(differ.currentList[position])
+        holder.itemView.setOnClickListener { onItemClickCallback?.onItemClicked(differ.currentList[position]) }
     }
 
     @SuppressLint("NotifyDataSetChanged")
     fun updateData(data: List<BookList>) {
         differ.submitList(data)
     }
+    interface OnItemClickCallback {
+        fun onItemClicked(data: BookList)
+    }
+
 }

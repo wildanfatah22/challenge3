@@ -1,8 +1,12 @@
 package com.example.challenge3
 
+import android.content.Intent
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.ListAdapter
 import com.example.challenge3.adapter.BookAdapter
 import com.example.challenge3.data.BookList
 import com.example.challenge3.databinding.ActivityListBinding
@@ -28,6 +32,20 @@ class ListActivity : AppCompatActivity() {
         binding.rvList.layoutManager = layoutManager
         binding.rvList.setHasFixedSize(true)
         binding.rvList.adapter = adapter
+
+        adapter.setOnItemClickCallback(object : BookAdapter.OnItemClickCallback {
+            override fun onItemClicked(data: BookList) {
+                navigateToGoogle(data)
+            }
+        })
+    }
+
+    private fun navigateToGoogle(data: BookList) {
+        val intent = Intent(this@ListActivity, GoogleActivity::class.java)
+        intent.putExtra(GoogleActivity.EXTRA_SEARCH_QUERY, data.name)
+        startActivity(intent)
+
+
     }
 
     private fun generateDummyData(): List<BookList> {
