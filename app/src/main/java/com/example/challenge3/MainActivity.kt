@@ -1,5 +1,6 @@
 package com.example.challenge3
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -29,6 +30,19 @@ class MainActivity : AppCompatActivity() {
         binding.rvList.setHasFixedSize(true)
         binding.rvList.adapter = adapter
         this.adapter.updateData(generateDummyData())
+
+        adapter.setOnItemClickCallback(object : ListAdapter.OnItemClickCallback {
+            override fun onItemClicked(data: AlphabetList) {
+                navigateToBookDetail(data)
+            }
+        })
+    }
+
+    private fun navigateToBookDetail(data: AlphabetList) {
+        val intent = Intent(this@MainActivity, ListActivity::class.java)
+        intent.putExtra(ListActivity.KEY_ID, data.id)
+        intent.putExtra(ListActivity.KEY_NAME, data.charAlphabet)
+        startActivity(intent)
     }
 
     private fun generateDummyData(): List<AlphabetList> {
@@ -38,9 +52,5 @@ class MainActivity : AppCompatActivity() {
             data.add(AlphabetList(i+1, ('A' + i).toString(), imageId))
         }
         return data
-    }
-
-    companion object {
-        private const val TAG = "MainActivity"
     }
 }

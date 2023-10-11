@@ -3,7 +3,7 @@ package com.example.challenge3.adapter
 import androidx.recyclerview.widget.DiffUtil
 import com.example.challenge3.data.AlphabetList
 
-class RecyclerDiffUtilCallback : DiffUtil.ItemCallback<AlphabetList>() {
+class ListDiffUtilCallback : DiffUtil.ItemCallback<AlphabetList>() {
     override fun areItemsTheSame(oldItem: AlphabetList, newItem: AlphabetList): Boolean {
         return oldItem == newItem
     }

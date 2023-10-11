@@ -5,23 +5,17 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.RecyclerView
-import com.example.challenge3.data.AlphabetList
+import com.example.challenge3.data.BookList
 import com.example.challenge3.databinding.ItemListBinding
 
-class ListAdapter : RecyclerView.Adapter<ListAdapter.ViewHolder>() {
+class BookAdapter: RecyclerView.Adapter<BookAdapter.ViewHolder>() {
 
-    private val differ = AsyncListDiffer(this, ListDiffUtilCallback())
-
-    private var onItemClickCallback: OnItemClickCallback? = null
-
-    fun setOnItemClickCallback(onItemClickCallback: OnItemClickCallback) {
-        this.onItemClickCallback = onItemClickCallback
-    }
+    private val differ = AsyncListDiffer(this, BookDiffUtilCallback())
 
     inner class ViewHolder(private var binding: ItemListBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(data: AlphabetList) {
+        fun bind(data: BookList) {
             binding.ivBanner.setImageResource(data.imagePicture)
-            binding.listName.text = data.charAlphabet
+            binding.listName.text = data.name
         }
     }
 
@@ -34,17 +28,10 @@ class ListAdapter : RecyclerView.Adapter<ListAdapter.ViewHolder>() {
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.bind(differ.currentList[position])
-        holder.itemView.setOnClickListener { onItemClickCallback?.onItemClicked(differ.currentList[position]) }
-
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    fun updateData(data: List<AlphabetList>) {
+    fun updateData(data: List<BookList>) {
         differ.submitList(data)
-    }
-
-
-    interface OnItemClickCallback {
-        fun onItemClicked(data: AlphabetList)
     }
 }
