@@ -3,54 +3,71 @@ package com.example.challenge3
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
+import android.view.Menu
+import android.view.MenuItem
+import android.widget.Toast
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.challenge3.adapter.ListAdapter
-import com.example.challenge3.data.AlphabetList
+import com.example.challenge3.adapter.AlphabetAdapter
 import com.example.challenge3.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
 
-    private val adapter = ListAdapter()
+    private val adapter = AlphabetAdapter()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        val toolbar = binding.toolbar
+        setSupportActionBar(toolbar)
+        supportActionBar?.setDisplayShowTitleEnabled(false)
 
+        binding.rvList.setHasFixedSize(true)
         setRv()
 
     }
 
-    private fun setRv(){
+    private fun setRv() {
         val layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
         binding.rvList.layoutManager = layoutManager
         binding.rvList.setHasFixedSize(true)
         binding.rvList.adapter = adapter
-        this.adapter.updateData(generateDummyData())
+        adapter.updateData(generateAlphabetData())
 
-        adapter.setOnItemClickCallback(object : ListAdapter.OnItemClickCallback {
-            override fun onItemClicked(data: AlphabetList) {
-                navigateToBookDetail(data)
+        adapter.setOnItemClickCallback(object : AlphabetAdapter.OnItemClickCallback {
+            override fun onItemClicked(data: Char) {
+                navigateToBookList(data)
             }
         })
     }
 
-    private fun navigateToBookDetail(data: AlphabetList) {
+    private fun navigateToBookList(letter: Char) {
         val intent = Intent(this@MainActivity, ListActivity::class.java)
-        intent.putExtra(ListActivity.KEY_ID, data.id)
-        intent.putExtra(ListActivity.KEY_NAME, data.charAlphabet)
+        intent.putExtra(ListActivity.KEY_LETTER, letter)
         startActivity(intent)
     }
 
-    private fun generateDummyData(): List<AlphabetList> {
-        val data = mutableListOf<AlphabetList>()
-        for(i in 0 until 10) {
-            val imageId = resources.getIdentifier("img_${i + 1}", "drawable", "com.example.challenge3")
-            data.add(AlphabetList(i+1, ('A' + i).toString(), imageId))
+    private fun generateAlphabetData(): List<Char> {
+        return ('A'..'J').toList()
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu_main, menu)
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.action_list -> {
+                binding.rvList.layoutManager = LinearLayoutManager(this)
+            }
+            R.id.action_grid -> {
+                binding.rvList.layoutManager = GridLayoutManager(this, 2)
+            }
         }
-        return data
+        return super.onOptionsItemSelected(item)
     }
 }
