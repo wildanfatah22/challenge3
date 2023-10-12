@@ -7,4 +7,12 @@
     <string name="hi">Hi,</string>
     <string name="user">Wildan</string>
     <string name="book_list">Book List</string>
+    <string name="description">Book List App</string>
+    <string name="login_text">Login</string>
+    <string name="email">Email</string>
+    <string name="password_hint">Password</string>
+    <string name="havent_account">Didn\\\'t have account?</string>
+    <string name="register">Register</string>
+    <string name="name_full">Full Name</string>
+    <string name="have_account">Already have account?</string>
 </resources>
