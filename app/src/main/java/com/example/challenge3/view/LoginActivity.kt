@@ -29,7 +29,7 @@ class LoginActivity : AppCompatActivity() {
                 email.isEmpty() -> showErrorAndFocus(binding.edtEmail, "Email cannot be empty")
                 password.isEmpty() -> showErrorAndFocus(binding.edtPassword, "Password cannot be empty")
                 else -> {
-                    val intent = Intent(this, MainActivity::class.java)
+                    val intent = Intent(this, FragmentActivity::class.java)
                     startActivity(intent)
                 }
             }

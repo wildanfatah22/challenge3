@@ -24,6 +24,7 @@
             app:title="@string/book_list"
             app:titleCentered="true"
             app:titleTextColor="@color/white"
+            app:menu="@menu/menu_main"
             app:titleTextAppearance="@style/TextAppearance.AppCompat.Large" />
     </com.google.android.material.appbar.AppBarLayout>
 
