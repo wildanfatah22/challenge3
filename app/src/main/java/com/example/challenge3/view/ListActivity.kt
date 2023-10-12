@@ -1,13 +1,11 @@
-package com.example.challenge3
+package com.example.challenge3.view
 
 import android.content.Intent
-import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
-import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.ListAdapter
+import com.example.challenge3.R
 import com.example.challenge3.adapter.BookAdapter
 import com.example.challenge3.data.BookList
 import com.example.challenge3.databinding.ActivityListBinding
