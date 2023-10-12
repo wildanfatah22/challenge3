@@ -5,10 +5,6 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.webkit.WebChromeClient
-import android.webkit.WebView
-import android.webkit.WebViewClient
-import android.widget.Toast
 import com.example.challenge3.databinding.FragmentWebViewBinding
 import com.example.challenge3.helper.WebViewManager
 import com.example.challenge3.view.GoogleActivity
@@ -24,8 +20,7 @@ class WebViewFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         _binding = FragmentWebViewBinding.inflate(inflater, container, false)
-        val view = binding.root
-        return view
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

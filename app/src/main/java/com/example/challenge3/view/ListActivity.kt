@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.Toast
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.challenge3.R
@@ -49,7 +50,7 @@ class ListActivity : AppCompatActivity() {
         startActivity(intent)
     }
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.menu_main, menu)
+        menuInflater.inflate(R.menu.menu_activity, menu)
         return super.onCreateOptionsMenu(menu)
     }
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -64,6 +65,12 @@ class ListActivity : AppCompatActivity() {
 
             R.id.action_grid -> {
                 binding.rvList.layoutManager = GridLayoutManager(this, 2)
+            }
+            R.id.action_fragment -> {
+                val intent = Intent(this, FragmentActivity::class.java)
+                Toast.makeText(this, "Menuju main fragment", Toast.LENGTH_SHORT).show()
+                startActivity(intent)
+                finish()
             }
         }
         return super.onOptionsItemSelected(item)
