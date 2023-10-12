@@ -15,4 +15,9 @@
     <string name="register">Register</string>
     <string name="name_full">Full Name</string>
     <string name="have_account">Already have account?</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="book_search">Book Search</string>
+    <string name="go_to_activity">Go to Activity</string>
+    <string name="go_to_fragment">Go to Fragment</string>
 </resources>

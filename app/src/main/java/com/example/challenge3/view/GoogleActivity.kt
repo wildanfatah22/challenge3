@@ -2,11 +2,13 @@ package com.example.challenge3.view
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.MenuItem
 import android.webkit.WebChromeClient
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import android.widget.Toast
 import com.example.challenge3.databinding.ActivityGoogleBinding
+import com.example.challenge3.helper.WebViewManager
 
 class GoogleActivity : AppCompatActivity() {
     private lateinit var binding: ActivityGoogleBinding
@@ -16,28 +18,26 @@ class GoogleActivity : AppCompatActivity() {
         binding = ActivityGoogleBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        setSupportActionBar(binding.toolbar)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
         val webView = binding.webView
-
-        webView.webViewClient = object : WebViewClient() {
-            override fun onPageFinished(view: WebView, url: String) {
-                view.loadUrl("javascript:alert('Google berhasil dimuat')")
-            }
-        }
-
-        webView.webChromeClient = object : WebChromeClient() {
-            override fun onJsAlert(view: WebView, url: String, message: String, result: android.webkit.JsResult): Boolean {
-                Toast.makeText(this@GoogleActivity, message, Toast.LENGTH_LONG).show()
-                result.confirm()
-                return true
-            }
-        }
-
         val searchQuery = intent.getStringExtra(EXTRA_SEARCH_QUERY)
 
         if (!searchQuery.isNullOrBlank()) {
             val url = "https://www.google.com/search?q=$searchQuery"
-            webView.webViewClient = WebViewClient()
-            webView.loadUrl(url)
+            val webViewManager = WebViewManager(webView, this)
+            webViewManager.loadUrl(url)
+        }
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            android.R.id.home -> {
+                onBackPressed()
+                return true
+            }
+            else -> return super.onOptionsItemSelected(item)
         }
     }
 
